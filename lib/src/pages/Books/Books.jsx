@@ -1,3 +1,6 @@
+// CSS
+import 'Book.css';
+
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = initializeApp({
