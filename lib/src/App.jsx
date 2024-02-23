@@ -2,7 +2,6 @@
 import './App.scss';
 
 // Hooks
-import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 // Components
