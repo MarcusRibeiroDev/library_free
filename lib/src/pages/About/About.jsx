@@ -1,7 +1,8 @@
 // CSS
 import './About.scss';
+// import bg from '../../assets/img/bg.svg'
 
-function About() {
+const About = () => {
   return (
     <div className="text-box container d-flex flex-column justify-content-center">
       <h2 className="text-title display-1 text-center text-white mb-5">Sobre</h2>
@@ -27,6 +28,6 @@ function About() {
       </p>
     </div>
   );
-}
+};
 
 export default About;
