@@ -1,0 +1,24 @@
+// Standard and global reset and normalization
+* {
+  box-sizing: border-box;
+  margin: 0rem;
+  padding: 0rem;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+}
+
+// Overall responsiveness
+
+@media (max-width: 425px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+// Bootstrap underwritten variables

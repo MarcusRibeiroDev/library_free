@@ -1,0 +1,18 @@
+footer {
+  background-color: rgba(0, 0, 0, 0.85);
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  p {
+    color: #fff;
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  img {
+    height: 4rem;
+    margin: 0 1rem;
+  }
+}
