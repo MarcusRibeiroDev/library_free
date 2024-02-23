@@ -1,5 +1,5 @@
 // CSS
-import './App.css';
+import './App.scss';
 
 // Hooks
 import { useEffect } from 'react';
