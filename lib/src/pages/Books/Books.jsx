@@ -3,21 +3,13 @@ import './Books.scss';
 
 // Hooks
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 
-import { initializeApp } from 'firebase/app';
-
-const firebaseConfig = initializeApp({
-  apiKey: 'AIzaSyBqXsgDzYwAorpiOG2heBNirBisuNCvsr8',
-  authDomain: 'libfree-99914.firebaseapp.com',
-  projectId: 'libfree-99914',
-  storageBucket: 'libfree-99914.appspot.com',
-  messagingSenderId: '736654385798',
-  appId: '1:736654385798:web:518eb0de90a1dee22fa707',
-});
+// Context
+import { BooksContext } from '../../context/BookProvider';
 
 const Books = () => {
-  // Codigo teste somente
-  const ids = [123, 321];
+  const { booksData } = useContext(BooksContext);
 
   return (
     <div className="screen container bg-danger d-flex flex-column justify-content-around">
@@ -96,87 +88,18 @@ const Books = () => {
         </div>
 
         <div className="cards-container bg-warning d-flex flex-wrap justify-content-between">
-          <div className="card col-3 mx-3">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up the bulk of the s
-                content.
-              </p>
-              <Link to={`/books/${ids[0]}`} className="btn btn-primary">
-                Go somewhere
-              </Link>
+          {booksData.map((card) => (
+            <div className="card col-3 mx-3" key={card.id}>
+              <img src={card.image} className="card-img-top" alt="..." />
+              <div className="card-body">
+                <h5 className="card-title">{card.title}</h5>
+                <p className="card-text">{card.description}</p>
+                <Link to={`/books/${card.id}`} className="btn btn-primary">
+                  Go somewhere
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="card col-3 mx-3">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up the bulk of the s
-                content.
-              </p>
-              <Link to={`/books/${ids[1]}`} className="btn btn-primary">
-                Go somewhere
-              </Link>
-            </div>
-          </div>
-          <div className="card col-3 mx-3">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up the bulk of the s
-                content.
-              </p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
-            </div>
-          </div>
-
-          <div className="card col-3 mx-3">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up the bulk of the s
-                content.
-              </p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
-            </div>
-          </div>
-
-          <div className="card col-3 mx-3">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up the bulk of the s
-                content.
-              </p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
-            </div>
-          </div>
-
-          <div className="card col-3 mx-3">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up the bulk of the s
-                content.
-              </p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 

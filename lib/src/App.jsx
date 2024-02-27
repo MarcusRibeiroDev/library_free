@@ -14,20 +14,25 @@ import Books from './pages/Books/Books';
 import About from './pages/About/About';
 import BookDetails from './pages/BookDetails/BookDetails';
 
+// Context
+import { BookProvider } from './context/BookProvider';
+
 const App = () => {
   return (
     <>
       <div>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="books" element={<Books />} />
-            <Route path="about" element={<About />} />
-            <Route path="books/:id" element={<BookDetails />} />
-          </Routes>
-          <Footer />
-        </Router>
+        <BookProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="books" element={<Books />} />
+              <Route path="books/:id" element={<BookDetails />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </BookProvider>
       </div>
     </>
   );
