@@ -15,6 +15,7 @@ import { BooksContext } from '../../context/BookProvider';
 function BookDetails() {
   const { booksData } = useContext(BooksContext);
   const [audioBook, setAudioBook] = useState(false);
+  const [videoLink, setVideoLink] = useState();
   const { id } = useParams();
 
   const book = booksData.find((book) => book.id == id);
@@ -39,27 +40,39 @@ function BookDetails() {
                     <img
                       src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
                       alt=""
-                      onClick={() => setAudioBook(!audioBook)}
+                      onClick={() => {
+                        setAudioBook(!audioBook);
+                        setVideoLink(book.linkBrVideo);
+                      }}
                     />
                     <img
                       src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
                       alt=""
-                      onClick={() => setAudioBook(!audioBook)}
+                      onClick={() => {
+                        setAudioBook(!audioBook);
+                        setVideoLink(book.linkEnVideo);
+                      }}
                     />
-                    <img
-                      src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
-                      alt=""
-                      onClick={() => setAudioBook(!audioBook)}
-                    />
-                    <img
-                      src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
-                      alt=""
-                      onClick={() => setAudioBook(!audioBook)}
-                    />
+                    <a href={book.linkBrPdf} target="_blank">
+                      <img
+                        src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
+                        alt=""
+                      />
+                    </a>
+                    <a href={book.linkEnPdf} target="_blank">
+                      <img
+                        src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
+                        alt=""
+                      />
+                    </a>
                   </div>
                   <div className="book-flags">
                     <img src={brazilFlag} alt="" />
-                    <img src={usaFlag} alt="" />
+                    {book.language.length > 1 && (
+                      <>
+                        <img src={usaFlag} alt="" />
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -74,7 +87,7 @@ function BookDetails() {
                 </button>
                 <iframe
                   className=""
-                  src={'https://www.youtube.com/embed/Uyx5Lzn1yAs?si=KJ0vPauMR0N4nUDj'}
+                  src={videoLink}
                   title="YouTube video player"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 ></iframe>
