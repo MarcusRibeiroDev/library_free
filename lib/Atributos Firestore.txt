@@ -1,0 +1,12 @@
+linkBrVideo
+linkEnVideo
+linkBrPdf
+linkEnPdf
+resume
+title
+year
+language
+id
+category
+author
+image

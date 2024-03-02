@@ -1,46 +1,63 @@
+// *** Filtragem com categorias e conversão da pesquisa small case
+
 // CSS
 import './Books.scss';
 
 // Hooks
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // Context
 import { BooksContext } from '../../context/BookProvider';
 
 const Books = () => {
-  const { booksData } = useContext(BooksContext);
+  const { booksData } = useContext(BooksContext); // Conteúdo original do firebase
+  const [newBooksData, setNewBooksData] = useState(); // Conteúdo filtrado
+  const [inputSearch, setInputSearch] = useState('');
+  const [invalidSearch, setInvalidSearch] = useState(false);
+
+  const filterCard = (el) => {
+    if (!el) {
+      return booksData;
+    } else {
+      if (booksData.filter((b) => b.title.includes(el)).length > 0) {
+        setInvalidSearch(false);
+        return booksData.filter((b) => b.title.includes(el));
+      } else {
+        setInvalidSearch(true);
+        return;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (booksData) {
+      setNewBooksData(filterCard(inputSearch));
+      console.log(newBooksData);
+    }
+  }, [inputSearch]);
 
   return (
     <div className="screen container bg-danger d-flex flex-column justify-content-around">
       <div className="row bg-warning">
         <div className="tags d-flex flex-wrap justify-content-between text-center">
           <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            MATEMATICA
+            Literatura
           </a>
           <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            PORTUGUES
+            Infantil
           </a>
           <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            BIOLOGIA
+            Biologia
           </a>
           <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            FILOSOFIA
+            História
           </a>
           <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            GEOGRAFIA
+            Ficcão
           </a>
           <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
             HISTORIA
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            SOCIOLOGIA
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            FISICA
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            LITERATURA
           </a>
         </div>
       </div>
@@ -53,6 +70,8 @@ const Books = () => {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              value={inputSearch}
+              onChange={(e) => setInputSearch(e.target.value)}
             />
             <button className="btn btn-outline-danger" type="submit">
               Search
@@ -65,22 +84,22 @@ const Books = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Dropdown button
+              Ordenar
             </button>
             <ul className="dropdown-menu">
               <li>
                 <a className="dropdown-item" href="#">
-                  Action
+                  Alfabética A-Z
                 </a>
               </li>
               <li>
                 <a className="dropdown-item" href="#">
-                  Another action
+                  Mais novos
                 </a>
               </li>
               <li>
                 <a className="dropdown-item" href="#">
-                  Something else here
+                  Mais antigos
                 </a>
               </li>
             </ul>
@@ -88,18 +107,23 @@ const Books = () => {
         </div>
 
         <div className="cards-container bg-warning d-flex flex-wrap justify-content-between">
-          {booksData.map((card) => (
-            <div className="card col-3 mx-3" key={card.id}>
-              <img src={card.image} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">{card.title}</h5>
-                <p className="card-text">{card.description}</p>
-                <Link to={`/books/${card.id}`} className="btn btn-primary">
-                  Go somewhere
-                </Link>
-              </div>
-            </div>
-          ))}
+          {booksData &&
+            !invalidSearch &&
+            (newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData).map(
+              (card) => (
+                <div className="card col-3 mx-3" key={card.id}>
+                  <img src={card.image} className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title">{card.title}</h5>
+                    <p className="card-text">{card.description}</p>
+                    <Link to={`/books/${card.id}`} className="btn btn-primary">
+                      Go somewhere
+                    </Link>
+                  </div>
+                </div>
+              )
+            )}
+          {invalidSearch && <div>Pesquisa inválida</div>}
         </div>
       </div>
 
