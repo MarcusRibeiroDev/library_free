@@ -18,11 +18,12 @@ const Books = () => {
 
   const filterCard = (el) => {
     if (!el) {
+      setInvalidSearch(false);
       return booksData;
     } else {
-      if (booksData.filter((b) => b.title.includes(el)).length > 0) {
+      if (booksData.filter((b) => b.title.toLowerCase().includes(el.toLowerCase())).length > 0) {
         setInvalidSearch(false);
-        return booksData.filter((b) => b.title.includes(el));
+        return booksData.filter((b) => b.title.toLowerCase().includes(el.toLowerCase()));
       } else {
         setInvalidSearch(true);
         return;
@@ -39,29 +40,6 @@ const Books = () => {
 
   return (
     <div className="screen container bg-danger d-flex flex-column justify-content-around">
-      <div className="row bg-warning">
-        <div className="tags d-flex flex-wrap justify-content-between text-center">
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            Literatura
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            Infantil
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            Biologia
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            História
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            Ficcão
-          </a>
-          <a href="#" className="col-2 col-md-1 bg-light mx-2 p-2 mb-1">
-            HISTORIA
-          </a>
-        </div>
-      </div>
-
       <div className="cards-container-p">
         <div className="tools row bg-dark justify-content-between mb-5">
           <div className="d-flex col-5 bg-primary" role="search">
@@ -73,9 +51,6 @@ const Books = () => {
               value={inputSearch}
               onChange={(e) => setInputSearch(e.target.value)}
             />
-            <button className="btn btn-outline-danger" type="submit">
-              Search
-            </button>
           </div>
           <div className="dropdown col-5 bg-success">
             <button
@@ -115,9 +90,9 @@ const Books = () => {
                   <img src={card.image} className="card-img-top" alt="..." />
                   <div className="card-body">
                     <h5 className="card-title">{card.title}</h5>
-                    <p className="card-text">{card.description}</p>
+                    <h5 className="card-text text-danger">{card.category}</h5>
                     <Link to={`/books/${card.id}`} className="btn btn-primary">
-                      Go somewhere
+                      Detalhes
                     </Link>
                   </div>
                 </div>
