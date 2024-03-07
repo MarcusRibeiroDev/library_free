@@ -1,4 +1,4 @@
-// *** Filtragem com categorias e conversão da pesquisa small case
+// *** Terminar filtragem colocando opçáo de (voltar ao inicial)
 
 // CSS
 import './Books.scss';
@@ -15,6 +15,7 @@ const Books = () => {
   const [newBooksData, setNewBooksData] = useState(); // Conteúdo filtrado
   const [inputSearch, setInputSearch] = useState('');
   const [invalidSearch, setInvalidSearch] = useState(false);
+  const [sortType, setSortType] = useState('');
 
   const filterCard = (el) => {
     if (!el) {
@@ -34,9 +35,50 @@ const Books = () => {
   useEffect(() => {
     if (booksData) {
       setNewBooksData(filterCard(inputSearch));
-      console.log(newBooksData);
     }
   }, [inputSearch]);
+
+  const ordenarPorTitulo = (listaDeObjetos) => {
+    return listaDeObjetos.sort((a, b) => {
+      const titleA = a.title.toUpperCase();
+      const titleB = b.title.toUpperCase();
+
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+  }; // Ordenação por ordem alfabética
+
+  const ordenarPorNovos = (listaDeObjetos) => {
+    return listaDeObjetos.sort((a, b) => b.year - a.year);
+  }; // Ordenação por ordem alfabética
+
+  const ordenarPorVelhos = (listaDeObjetos) => {
+    return listaDeObjetos.sort((a, b) => a.year - b.year);
+  }; // Ordenação por ordem alfabética
+
+  useEffect(() => {
+    if (sortType === 'alfabética') {
+      const sortedBooks = ordenarPorTitulo(
+        newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
+      );
+      setNewBooksData([...sortedBooks]);
+    } else if (sortType === 'novos') {
+      const sortedBooksNew = ordenarPorNovos(
+        newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
+      );
+      setNewBooksData([...sortedBooksNew]);
+    } else if (sortType === 'velhos') {
+      const sortedBooksNew = ordenarPorVelhos(
+        newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
+      );
+      setNewBooksData([...sortedBooksNew]);
+    }
+  }, [sortType]); // Effect que observa as ordens
 
   return (
     <div className="screen container bg-danger d-flex flex-column justify-content-around">
@@ -63,19 +105,34 @@ const Books = () => {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <a className="dropdown-item" href="#">
+                <button
+                  className={`dropdown-item ${sortType === 'alfabética' ? 'activeSort' : ''}`}
+                  onClick={() => {
+                    setSortType('alfabética');
+                  }}
+                >
                   Alfabética A-Z
-                </a>
+                </button>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <button
+                  className={`dropdown-item ${sortType === 'novos' ? 'activeSort' : ''}`}
+                  onClick={() => {
+                    setSortType('novos');
+                  }}
+                >
                   Mais novos
-                </a>
+                </button>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <button
+                  className={`dropdown-item ${sortType === 'velhos' ? 'activeSort' : ''}`}
+                  onClick={() => {
+                    setSortType('velhos');
+                  }}
+                >
                   Mais antigos
-                </a>
+                </button>
               </li>
             </ul>
           </div>
