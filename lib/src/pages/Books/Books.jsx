@@ -5,7 +5,7 @@ import './Books.scss';
 
 // Hooks
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 
 // Context
 import { BooksContext } from '../../context/BookProvider';
@@ -16,6 +16,7 @@ const Books = () => {
   const [inputSearch, setInputSearch] = useState('');
   const [invalidSearch, setInvalidSearch] = useState(false);
   const [sortType, setSortType] = useState('');
+  const textInput = useRef();
 
   const filterCard = (el) => {
     if (!el) {
@@ -35,6 +36,9 @@ const Books = () => {
   useEffect(() => {
     if (booksData) {
       setNewBooksData(filterCard(inputSearch));
+      if (inputSearch.length === 0) {
+        setSortType('default');
+      }
     }
   }, [inputSearch]);
 
@@ -61,6 +65,11 @@ const Books = () => {
     return listaDeObjetos.sort((a, b) => a.year - b.year);
   }; // Ordenação por ordem alfabética
 
+  const ordenarPadrao = () => {
+    setInputSearch('');
+    setNewBooksData(booksData);
+  };
+
   useEffect(() => {
     if (sortType === 'alfabética') {
       const sortedBooks = ordenarPorTitulo(
@@ -77,6 +86,8 @@ const Books = () => {
         newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
       );
       setNewBooksData([...sortedBooksNew]);
+    } else if (sortType === 'default') {
+      ordenarPadrao();
     }
   }, [sortType]); // Effect que observa as ordens
 
@@ -90,6 +101,7 @@ const Books = () => {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              ref={textInput}
               value={inputSearch}
               onChange={(e) => setInputSearch(e.target.value)}
             />
@@ -132,6 +144,16 @@ const Books = () => {
                   }}
                 >
                   Mais antigos
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`dropdown-item ${sortType === 'default' ? 'activeSort' : ''}`}
+                  onClick={() => {
+                    setSortType('default');
+                  }}
+                >
+                  Padrão
                 </button>
               </li>
             </ul>

@@ -45,26 +45,34 @@ function BookDetails() {
                         setVideoLink(book.linkBrVideo);
                       }}
                     />
-                    <img
-                      src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
-                      alt=""
-                      onClick={() => {
-                        setAudioBook(!audioBook);
-                        setVideoLink(book.linkEnVideo);
-                      }}
-                    />
+                    {book.language.length > 1 && (
+                      <>
+                        <img
+                          src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
+                          alt=""
+                          onClick={() => {
+                            setAudioBook(!audioBook);
+                            setVideoLink(book.linkEnVideo);
+                          }}
+                        />
+                      </>
+                    )}
                     <a href={book.linkBrPdf} target="_blank">
                       <img
                         src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
                         alt=""
                       />
                     </a>
-                    <a href={book.linkEnPdf} target="_blank">
-                      <img
-                        src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
-                        alt=""
-                      />
-                    </a>
+                    {book.language.length > 1 && (
+                      <>
+                        <a href={book.linkEnPdf} target="_blank">
+                          <img
+                            src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
+                            alt=""
+                          />
+                        </a>
+                      </>
+                    )}
                   </div>
                   <div className="book-flags">
                     <img src={brazilFlag} alt="" />
