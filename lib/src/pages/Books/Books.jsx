@@ -1,5 +1,3 @@
-// *** Terminar filtragem colocando opçáo de (voltar ao inicial)
-
 // CSS
 import './Books.scss';
 
@@ -12,10 +10,23 @@ import { BooksContext } from '../../context/BookProvider';
 
 const Books = () => {
   const { booksData } = useContext(BooksContext); // Conteúdo original do firebase
+
+  const [originalBooksData, setOriginalBooksData] = useState([]);
+  const [originalSortType, setOriginalSortType] = useState('');
   const [newBooksData, setNewBooksData] = useState(); // Conteúdo filtrado
   const [inputSearch, setInputSearch] = useState('');
   const [invalidSearch, setInvalidSearch] = useState(false);
   const [sortType, setSortType] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const [booksRendered, setBooksRendered] = useState([]);
+
+  const renderBooks = (books) => {
+    const startBook = currentPage * 6;
+    const endBook = startBook + 6;
+
+    return (books !== undefined && books.length > 0 ? books : booksData).slice(startBook, endBook);
+  };
+
   const textInput = useRef();
 
   const filterCard = (el) => {
@@ -35,10 +46,18 @@ const Books = () => {
 
   useEffect(() => {
     if (booksData) {
-      setNewBooksData(filterCard(inputSearch));
+      setOriginalBooksData(booksData);
+      setNewBooksData(booksData);
+      setOriginalSortType(sortType);
       if (inputSearch.length === 0) {
         setSortType('default');
       }
+    }
+  }, [booksData]);
+
+  useEffect(() => {
+    if (booksData) {
+      setNewBooksData(filterCard(inputSearch));
     }
   }, [inputSearch]);
 
@@ -67,29 +86,37 @@ const Books = () => {
 
   const ordenarPadrao = () => {
     setInputSearch('');
-    setNewBooksData(booksData);
+    setSortType(originalSortType);
+    setNewBooksData([...originalBooksData]);
   };
 
   useEffect(() => {
-    if (sortType === 'alfabética') {
-      const sortedBooks = ordenarPorTitulo(
-        newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
-      );
-      setNewBooksData([...sortedBooks]);
-    } else if (sortType === 'novos') {
-      const sortedBooksNew = ordenarPorNovos(
-        newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
-      );
-      setNewBooksData([...sortedBooksNew]);
-    } else if (sortType === 'velhos') {
-      const sortedBooksNew = ordenarPorVelhos(
-        newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
-      );
-      setNewBooksData([...sortedBooksNew]);
-    } else if (sortType === 'default') {
-      ordenarPadrao();
+    if (booksData.length > 0) {
+      if (sortType === 'alfabética') {
+        const sortedBooks = ordenarPorTitulo(
+          newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
+        );
+        setNewBooksData([...sortedBooks]);
+      } else if (sortType === 'novos') {
+        const sortedBooksNew = ordenarPorNovos(
+          newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
+        );
+        setNewBooksData([...sortedBooksNew]);
+      } else if (sortType === 'velhos') {
+        const sortedBooksNew = ordenarPorVelhos(
+          newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData
+        );
+        setNewBooksData([...sortedBooksNew]);
+      } else if (sortType === 'default') {
+        ordenarPadrao();
+      }
     }
-  }, [sortType]); // Effect que observa as ordens
+  }, [sortType, originalBooksData]); // Effect que observa as ordens
+
+  useEffect(() => {
+    // Atualizar a lista de livros renderizados sempre que a página atual mudar ou os livros filtrados ou a busca inválida mudar
+    setBooksRendered(renderBooks(newBooksData));
+  }, [currentPage, newBooksData, invalidSearch]);
 
   return (
     <div className="screen container bg-danger d-flex flex-column justify-content-around">
@@ -161,22 +188,20 @@ const Books = () => {
         </div>
 
         <div className="cards-container bg-warning d-flex flex-wrap justify-content-between">
-          {booksData &&
+          {newBooksData &&
             !invalidSearch &&
-            (newBooksData !== undefined && newBooksData.length > 0 ? newBooksData : booksData).map(
-              (card) => (
-                <div className="card col-3 mx-3" key={card.id}>
-                  <img src={card.image} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">{card.title}</h5>
-                    <h5 className="card-text text-danger">{card.category}</h5>
-                    <Link to={`/books/${card.id}`} className="btn btn-primary">
-                      Detalhes
-                    </Link>
-                  </div>
+            (booksRendered.length > 0 ? booksRendered : booksData.slice(0, 6)).map((card) => (
+              <div className="card col-3 mx-3" key={card.id}>
+                <img src={card.image} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <h5 className="card-title">{card.title}</h5>
+                  <h5 className="card-text text-danger">{card.category}</h5>
+                  <Link to={`/books/${card.id}`} className="btn btn-primary">
+                    Detalhes
+                  </Link>
                 </div>
-              )
-            )}
+              </div>
+            ))}
           {invalidSearch && <div>Pesquisa inválida</div>}
         </div>
       </div>
@@ -185,29 +210,20 @@ const Books = () => {
         <nav aria-label="Page navigation example">
           <ul className="pagination">
             <li className="page-item">
-              <a className="page-link" href="#">
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(currentPage > 0 ? currentPage - 1 : currentPage)}
+              >
                 Previous
-              </a>
+              </button>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(currentPage > 1 ? currentPage : currentPage + 1)}
+              >
                 Next
-              </a>
+              </button>
             </li>
           </ul>
         </nav>
