@@ -2,7 +2,7 @@
 import './App.scss';
 
 // Hooks
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 // Components
 import Navbar from './components/Navbar/Navbar';
@@ -22,7 +22,7 @@ const App = () => {
     <>
       <div>
         <BookProvider>
-          <Router>
+          <BrowserRouter>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -31,7 +31,7 @@ const App = () => {
               <Route path="books/:id" element={<BookDetails />} />
             </Routes>
             <Footer />
-          </Router>
+          </BrowserRouter>
         </BookProvider>
       </div>
     </>
