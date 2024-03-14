@@ -1,9 +1,16 @@
 .slide {
   height: 100vh;
   object-fit: cover;
-  object-position: right;
+  object-position: center;
 }
 
-.carousel-caption {
-  margin-bottom: 40rem;
+.carousel-item {
+  .carousel-caption {
+    margin-bottom: 40vh;
+    h5.display-1,
+    p.display-5 {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-weight: 400;
+    }
+  }
 }

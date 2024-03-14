@@ -1,7 +1,7 @@
 // CSS
 import './Home.scss';
 
-import img1 from '../../assets/img/img1.jpg';
+import img1 from '../../assets/img/img1.png';
 import img2 from '../../assets/img/img2.jpeg';
 import img3 from '../../assets/img/img3.jpg';
 
@@ -37,32 +37,23 @@ function Home() {
       <div className="carousel-inner">
         <div className="carousel-item active">
           <img src={img1} className="slide d-block w-100" alt="..." />
-          <div className="carousel-caption bg-black">
-            <h5 className="display-1">First slide label</h5>
-            <p className="display-5">
-              Some representative placeholder content for the first slide.
-            </p>
-            <a href="">Acesse aqui</a>
+          <div className="carousel-caption">
+            <h5 className="display-1">Acessibilidade</h5>
+            <p className="display-5">Leia livros online de maneira gratuita.</p>
           </div>
         </div>
         <div className="carousel-item">
           <img src={img2} className="slide d-block w-100" alt="..." />
-          <div className="carousel-caption bg-black">
-            <h5 className="display-1">First slide label</h5>
-            <p className="display-5">
-              Some representative placeholder content for the first slide.
-            </p>
-            <a href="">Acesse aqui</a>
+          <div className="carousel-caption">
+            <h5 className="display-1">PDFs Digitais</h5>
+            <p className="display-5">Alguns livros disponíveis em dois idiomas.</p>
           </div>
         </div>
         <div className="carousel-item">
           <img src={img3} className="slide d-block w-100" alt="..." />
-          <div className="carousel-caption bg-black">
-            <h5 className="display-1">First slide label</h5>
-            <p className="display-5">
-              Some representative placeholder content for the first slide.
-            </p>
-            <a href="">Acesse aqui</a>
+          <div className="carousel-caption">
+            <h5 className="display-1">AudioBooks</h5>
+            <p className="display-5">Áudios do YouTube de todos os livros em nosso site.</p>
           </div>
         </div>
       </div>

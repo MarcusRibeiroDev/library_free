@@ -1,24 +1,25 @@
-img {
-  height: 7.5rem;
-}
-
 nav {
   background-color: #0f222d;
-}
 
-.nav-item {
-  padding: 2rem;
-}
+  .navbar-brand {
+    img {
+      height: 9rem;
+      margin: 1rem;
+    }
+  }
 
-.nav-link {
-  transition: color 0.3s, font-size 0.3s; /* Adicionando transição para mudanças de cor e tamanho de fonte */
-  font-size: 1.6rem;
-  color: #fff5d1;
-  padding: 0;
-}
+  // Adaptações Bootstrap
 
-.nav-link:focus,
-.nav-link:hover {
-  color: white;
-  font-size: 1.8rem;
+  .nav-link-custom {
+    transition: color 0.3s, font-size 0.3s;
+    font-size: 1.6rem;
+    color: #fff5d1;
+    padding: 0;
+  }
+
+  .nav-link-custom:focus,
+  .nav-link-custom:hover {
+    color: white;
+    font-size: 1.8rem;
+  }
 }
