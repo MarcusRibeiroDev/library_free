@@ -1,11 +1,45 @@
 .screen {
-  height: 100vh;
-}
+  background-color: #0f222d;
 
-.tags {
-  height: 5rem;
-}
+  .activeSort {
+    background-color: rgb(255, 255, 0);
+  }
 
-.activeSort {
-  background-color: aqua;
+  .div-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .card-custom {
+    width: 28rem;
+    height: 46rem;
+    border: solid 0.5rem #fff;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+      rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+    img {
+      max-height: 80%;
+      margin-bottom: 0.8rem;
+    }
+
+    h5 {
+      font-size: 1.8rem;
+    }
+
+    h6 {
+      font-size: 1.4rem;
+    }
+
+    a {
+      background-color: #ffd700;
+      border: none;
+      font-size: 1.2rem;
+      color: rgb(0, 0, 0);
+      box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+      margin-top: 0.8rem;
+      font-weight: 600;
+    }
+  }
 }

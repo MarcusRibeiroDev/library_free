@@ -119,7 +119,7 @@ const Books = () => {
   }, [currentPage, newBooksData, invalidSearch]);
 
   return (
-    <div className="screen container bg-danger d-flex flex-column justify-content-around">
+    <div className="screen container d-flex flex-column justify-content-around">
       <div className="cards-container-p">
         <div className="tools row bg-dark justify-content-between mb-5">
           <div className="d-flex col-5 bg-primary" role="search">
@@ -187,22 +187,28 @@ const Books = () => {
           </div>
         </div>
 
-        <div className="cards-container bg-warning d-flex flex-wrap justify-content-between">
-          {newBooksData &&
-            !invalidSearch &&
-            (booksRendered.length > 0 ? booksRendered : booksData.slice(0, 6)).map((card) => (
-              <div className="card col-3 mx-3" key={card.id}>
-                <img src={card.image} className="card-img-top" alt="..." />
-                <div className="card-body">
-                  <h5 className="card-title">{card.title}</h5>
-                  <h5 className="card-text text-danger">{card.category}</h5>
-                  <Link to={`/books/${card.id}`} className="btn btn-primary">
-                    Detalhes
-                  </Link>
-                </div>
-              </div>
-            ))}
-          {invalidSearch && <div>Pesquisa inválida</div>}
+        <div className="container">
+          <div className="row">
+            {newBooksData &&
+              !invalidSearch &&
+              (booksRendered.length > 0 ? booksRendered : booksData.slice(0, 6)).map(
+                (card, index) => (
+                  <div key={index} className="col-lg-4 col-md-6 col-sm-6 div-custom">
+                    <div className="card card-custom">
+                      <img src={card.image} className="card-img-top " alt="..." />
+                      <div className="card-body p-0">
+                        <h5 className="card-title">{card.title}</h5>
+                        <h6 className="card-text text-danger">{card.category}</h6>
+                        <Link to={`/books/${card.id}`} className="btn btn-primary">
+                          Detalhes
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                )
+              )}
+            {invalidSearch && <div className="col">Pesquisa inválida</div>}
+          </div>
         </div>
       </div>
 
