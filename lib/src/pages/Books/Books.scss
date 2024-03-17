@@ -1,5 +1,6 @@
 .screen {
   background-color: #0f222d;
+  min-height: 100vh;
 
   .activeSort {
     background-color: rgb(255, 255, 0);
@@ -42,4 +43,38 @@
       font-weight: 600;
     }
   }
+}
+
+.input-custom {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  transform-origin: top left;
+
+  &:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    transform: scale(1.05);
+  }
+
+  &::placeholder {
+    color: #999;
+    font-size: 1.4rem;
+  }
+}
+
+.btn-custom {
+  height: 3.6rem;
+  width: 10.8rem;
+  font-size: 1.2rem;
+}
+
+.page-link {
+  height: 3.6rem;
+  width: 10.8rem;
+  font-size: 1.4rem;
+  color: black;
 }

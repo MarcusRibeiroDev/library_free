@@ -4,6 +4,10 @@ import './BookDetails.scss';
 // Images
 import brazilFlag from '../../assets/img/Brazil-flag.png';
 import usaFlag from '../../assets/img/USA-flag.png';
+import videoBr from '../../assets/img/videoBr-removebg-preview.png';
+import videoEn from '../../assets/img/videoEn-removebg-preview.png';
+import pdfBr from '../../assets/img/pdfBr-removebg-preview.png';
+import pdfEn from '../../assets/img/pdfEn-removebg-preview.png';
 
 // Hooks
 import { useState, useContext } from 'react';
@@ -23,13 +27,13 @@ function BookDetails() {
   return (
     <>
       {book && (
-        <div className="container d-flex justify-content-center align-items-center bg-secondary-subtle position-relative">
+        <div className="container d-flex justify-content-center align-items-center-subtle position-relative div-custom-book-detail roboto-medium">
           <div className="row container-custom">
             <div className="col-md-6 col-12 d-flex justify-content-start align-items-center flex-column p-5">
               <div>
-                <h2>{book.title}</h2>
+                <h2 className="text-white">{book.title}</h2>
                 <p>{book.resume}</p>
-                <h3>{book.author}</h3>
+                <h3 className="text-white">{book.author}</h3>
               </div>
             </div>
             <div className="col-md-6 col-12 d-flex justify-content-center align-items-center flex-column">
@@ -38,7 +42,7 @@ function BookDetails() {
                 <div className="d-flex justify-content-between">
                   <div className="book-tools">
                     <img
-                      src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
+                      src={videoBr}
                       alt=""
                       onClick={() => {
                         setAudioBook(!audioBook);
@@ -48,7 +52,7 @@ function BookDetails() {
                     {book.language.length > 1 && (
                       <>
                         <img
-                          src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
+                          src={videoEn}
                           alt=""
                           onClick={() => {
                             setAudioBook(!audioBook);
@@ -58,18 +62,12 @@ function BookDetails() {
                       </>
                     )}
                     <a href={book.linkBrPdf} target="_blank">
-                      <img
-                        src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
-                        alt=""
-                      />
+                      <img src={pdfBr} alt="" />
                     </a>
                     {book.language.length > 1 && (
                       <>
                         <a href={book.linkEnPdf} target="_blank">
-                          <img
-                            src="https://cdn.icon-icons.com/icons2/2036/PNG/512/blank_file_page_empty_document_icon_124196.png"
-                            alt=""
-                          />
+                          <img src={pdfEn} alt="" />
                         </a>
                       </>
                     )}

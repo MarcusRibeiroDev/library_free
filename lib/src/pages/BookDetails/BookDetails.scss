@@ -1,3 +1,7 @@
+.div-custom-book-detail {
+  background-image: url('../../assets/img/repeating-triangles.svg');
+}
+
 .container-custom {
   margin: 12rem 0;
 
@@ -75,8 +79,35 @@
 @media (max-width: 425px) {
   .book-video {
     iframe {
-      height: 45rem;
+      height: 40rem;
       width: 100%;
+    }
+  }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+  .book-img {
+    height: 42rem;
+    width: 30rem;
+    margin-bottom: 2rem;
+  }
+  .container-custom {
+    p {
+      font-size: 1.6rem;
+    }
+  }
+  .book-tools {
+    display: flex;
+
+    img {
+      height: 4rem;
+    }
+  }
+
+  .book-flags {
+    img {
+      height: 3rem;
+      margin: 0.4rem;
     }
   }
 }

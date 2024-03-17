@@ -121,22 +121,22 @@ const Books = () => {
   return (
     <div className="screen container d-flex flex-column justify-content-around">
       <div className="cards-container-p">
-        <div className="tools row bg-dark justify-content-between mb-5">
-          <div className="d-flex col-5 bg-primary" role="search">
+        <div className="tools row justify-content-between align-items-center  p-4 roboto-medium">
+          <div className="d-flex col-5" role="search">
             <input
-              className="form-control p-3"
+              className="form-control p-3 input-custom"
               type="search"
-              placeholder="Search"
+              placeholder="Pesquisar..."
               aria-label="Search"
               ref={textInput}
               value={inputSearch}
               onChange={(e) => setInputSearch(e.target.value)}
             />
           </div>
-          <div className="dropdown col-5 bg-success">
+          <div className="dropdown col-5">
             <button
-              className="btn btn-secondary dropdown-toggle"
               type="button"
+              className="btn btn-outline-warning dropdown-toggle btn-custom"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -207,12 +207,12 @@ const Books = () => {
                   </div>
                 )
               )}
-            {invalidSearch && <div className="col">Pesquisa inválida</div>}
+            {invalidSearch && <div className="col text-white">Pesquisa inválida</div>}
           </div>
         </div>
       </div>
 
-      <div className="pagination bg-info d-flex justify-content-center">
+      <div className="pagination d-flex justify-content-center roboto-medium p-4">
         <nav aria-label="Page navigation example">
           <ul className="pagination">
             <li className="page-item">
@@ -220,7 +220,7 @@ const Books = () => {
                 className="page-link"
                 onClick={() => setCurrentPage(currentPage > 0 ? currentPage - 1 : currentPage)}
               >
-                Previous
+                Anterior
               </button>
             </li>
             <li className="page-item">
@@ -228,7 +228,7 @@ const Books = () => {
                 className="page-link"
                 onClick={() => setCurrentPage(currentPage > 1 ? currentPage : currentPage + 1)}
               >
-                Next
+                Próximo
               </button>
             </li>
           </ul>
