@@ -1,5 +1,5 @@
 .screen {
-  background-color: #0f222d;
+  background-image: url('../../assets/img/vanishing-stripes.svg');
   min-height: 100vh;
 
   .activeSort {
@@ -48,10 +48,11 @@
 .input-custom {
   border: 2px solid #ccc;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   font-size: 1rem;
   transition: all 0.3s ease;
   transform-origin: top left;
+  max-width: 40rem;
 
   &:focus {
     outline: none;

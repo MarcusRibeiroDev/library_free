@@ -27,7 +27,7 @@ function BookDetails() {
   return (
     <>
       {book && (
-        <div className="container d-flex justify-content-center align-items-center-subtle position-relative div-custom-book-detail roboto-medium">
+        <div className=" d-flex justify-content-center align-items-center-subtle position-relative div-custom-book-detail roboto-medium">
           <div className="row container-custom">
             <div className="col-md-6 col-12 d-flex justify-content-start align-items-center flex-column p-5">
               <div>

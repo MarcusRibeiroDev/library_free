@@ -119,12 +119,12 @@ const Books = () => {
   }, [currentPage, newBooksData, invalidSearch]);
 
   return (
-    <div className="screen container d-flex flex-column justify-content-around">
+    <div className="screen d-flex flex-column justify-content-around">
       <div className="cards-container-p">
-        <div className="tools row justify-content-between align-items-center  p-4 roboto-medium">
-          <div className="d-flex col-5" role="search">
+        <div className="tools d-flex justify-content-center align-items-center  p-4 roboto-medium">
+          <div className="d-flex w-75" role="search">
             <input
-              className="form-control p-3 input-custom"
+              className="form-control input-custom"
               type="search"
               placeholder="Pesquisar..."
               aria-label="Search"
@@ -133,7 +133,7 @@ const Books = () => {
               onChange={(e) => setInputSearch(e.target.value)}
             />
           </div>
-          <div className="dropdown col-5">
+          <div className="dropdown">
             <button
               type="button"
               className="btn btn-outline-warning dropdown-toggle btn-custom"
