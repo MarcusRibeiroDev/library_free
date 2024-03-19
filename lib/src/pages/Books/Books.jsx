@@ -207,7 +207,7 @@ const Books = () => {
                   </div>
                 )
               )}
-            {invalidSearch && <div className="col text-white">Pesquisa inválida</div>}
+            {invalidSearch && <div className="wrong-searched roboto-medium">Pesquisa inválida</div>}
           </div>
         </div>
       </div>

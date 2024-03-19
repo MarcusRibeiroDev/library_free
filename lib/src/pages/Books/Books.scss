@@ -79,3 +79,29 @@
   font-size: 1.4rem;
   color: black;
 }
+
+.wrong-searched {
+  height: 8rem;
+  width: 40rem;
+  background-color: #0f222d;
+  margin: 20rem auto;
+  border-radius: 2rem;
+  border: 2px solid white;
+  box-shadow: rgb(255, 255, 255) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgb(255, 255, 255) 0px 30px 30px -30px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #fff;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
