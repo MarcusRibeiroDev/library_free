@@ -1,34 +1,34 @@
-// CSS
+// Importações CSS, hooks, e contexto
 import './Books.scss';
-
-// Hooks
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState, useRef } from 'react';
-
-// Context
 import { BooksContext } from '../../context/BookProvider';
 
 const Books = () => {
-  const { booksData } = useContext(BooksContext); // Conteúdo original do firebase
+  // Estado global de livros
+  const { booksData } = useContext(BooksContext);
 
+  // Estados locais
   const [originalBooksData, setOriginalBooksData] = useState([]);
   const [originalSortType, setOriginalSortType] = useState('');
-  const [newBooksData, setNewBooksData] = useState(); // Conteúdo filtrado
+  const [newBooksData, setNewBooksData] = useState();
   const [inputSearch, setInputSearch] = useState('');
   const [invalidSearch, setInvalidSearch] = useState(false);
   const [sortType, setSortType] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [booksRendered, setBooksRendered] = useState([]);
 
+  // Ref para o input de pesquisa
+  const textInput = useRef();
+
+  // Função para renderizar livros com paginação
   const renderBooks = (books) => {
     const startBook = currentPage * 6;
     const endBook = startBook + 6;
-
     return (books !== undefined && books.length > 0 ? books : booksData).slice(startBook, endBook);
   };
 
-  const textInput = useRef();
-
+  // Função para filtrar livros pelo título
   const filterCard = (el) => {
     if (!el) {
       setInvalidSearch(false);
@@ -44,6 +44,7 @@ const Books = () => {
     }
   };
 
+  // Efeito para inicializar estados quando os dados de livros mudam
   useEffect(() => {
     if (booksData) {
       setOriginalBooksData(booksData);
@@ -55,41 +56,34 @@ const Books = () => {
     }
   }, [booksData]);
 
+  // Efeito para filtrar livros quando a pesquisa é alterada
   useEffect(() => {
     if (booksData) {
       setNewBooksData(filterCard(inputSearch));
     }
   }, [inputSearch]);
 
+  // Funções para ordenar livros
   const ordenarPorTitulo = (listaDeObjetos) => {
-    return listaDeObjetos.sort((a, b) => {
-      const titleA = a.title.toUpperCase();
-      const titleB = b.title.toUpperCase();
-
-      if (titleA < titleB) {
-        return -1;
-      }
-      if (titleA > titleB) {
-        return 1;
-      }
-      return 0;
-    });
-  }; // Ordenação por ordem alfabética
+    return listaDeObjetos.sort((a, b) => a.title.localeCompare(b.title));
+  };
 
   const ordenarPorNovos = (listaDeObjetos) => {
     return listaDeObjetos.sort((a, b) => b.year - a.year);
-  }; // Ordenação por ordem alfabética
+  };
 
   const ordenarPorVelhos = (listaDeObjetos) => {
     return listaDeObjetos.sort((a, b) => a.year - b.year);
-  }; // Ordenação por ordem alfabética
+  };
 
+  // Função para restaurar a ordenação padrão
   const ordenarPadrao = () => {
     setInputSearch('');
     setSortType(originalSortType);
     setNewBooksData([...originalBooksData]);
   };
 
+  // Efeito para ordenar livros quando o tipo de ordenação é alterado
   useEffect(() => {
     if (booksData.length > 0) {
       if (sortType === 'alfabética') {
@@ -111,17 +105,19 @@ const Books = () => {
         ordenarPadrao();
       }
     }
-  }, [sortType, originalBooksData]); // Effect que observa as ordens
+  }, [sortType, originalBooksData]);
 
+  // Efeito para atualizar a lista de livros renderizados
   useEffect(() => {
-    // Atualizar a lista de livros renderizados sempre que a página atual mudar ou os livros filtrados ou a busca inválida mudar
     setBooksRendered(renderBooks(newBooksData));
   }, [currentPage, newBooksData, invalidSearch]);
 
+  // Retorno do componente
   return (
-    <div className="screen d-flex flex-column justify-content-around">
+    <div className="screen d-flex flex-column justify-content-around roboto-medium">
       <div className="cards-container-p">
-        <div className="tools d-flex justify-content-center align-items-center  p-4 roboto-medium">
+        <div className="tools d-flex justify-content-center align-items-center  p-4">
+          {/* Input de pesquisa */}
           <div className="d-flex w-75" role="search">
             <input
               className="form-control input-custom"
@@ -133,6 +129,7 @@ const Books = () => {
               onChange={(e) => setInputSearch(e.target.value)}
             />
           </div>
+          {/* Dropdown de ordenação */}
           <div className="dropdown">
             <button
               type="button"
@@ -146,9 +143,7 @@ const Books = () => {
               <li>
                 <button
                   className={`dropdown-item ${sortType === 'alfabética' ? 'activeSort' : ''}`}
-                  onClick={() => {
-                    setSortType('alfabética');
-                  }}
+                  onClick={() => setSortType('alfabética')}
                 >
                   Alfabética A-Z
                 </button>
@@ -156,9 +151,7 @@ const Books = () => {
               <li>
                 <button
                   className={`dropdown-item ${sortType === 'novos' ? 'activeSort' : ''}`}
-                  onClick={() => {
-                    setSortType('novos');
-                  }}
+                  onClick={() => setSortType('novos')}
                 >
                   Mais novos
                 </button>
@@ -166,9 +159,7 @@ const Books = () => {
               <li>
                 <button
                   className={`dropdown-item ${sortType === 'velhos' ? 'activeSort' : ''}`}
-                  onClick={() => {
-                    setSortType('velhos');
-                  }}
+                  onClick={() => setSortType('velhos')}
                 >
                   Mais antigos
                 </button>
@@ -176,9 +167,7 @@ const Books = () => {
               <li>
                 <button
                   className={`dropdown-item ${sortType === 'default' ? 'activeSort' : ''}`}
-                  onClick={() => {
-                    setSortType('default');
-                  }}
+                  onClick={() => setSortType('default')}
                 >
                   Padrão
                 </button>
@@ -187,6 +176,7 @@ const Books = () => {
           </div>
         </div>
 
+        {/* Grid de cards de livros */}
         <div className="container">
           <div className="row">
             {newBooksData &&
@@ -195,7 +185,7 @@ const Books = () => {
                 (card, index) => (
                   <div key={index} className="col-lg-4 col-md-6 col-sm-6 div-custom">
                     <div className="card card-custom">
-                      <img src={card.image} className="card-img-top " alt="..." />
+                      <img src={card.image} className="card-img-top" alt="..." />
                       <div className="card-body p-0">
                         <h5 className="card-title">{card.title}</h5>
                         <h6 className="card-text text-danger">{card.category}</h6>
@@ -207,12 +197,14 @@ const Books = () => {
                   </div>
                 )
               )}
-            {invalidSearch && <div className="wrong-searched roboto-medium">Pesquisa inválida</div>}
+            {/* Exibição de mensagem de pesquisa inválida */}
+            {invalidSearch && <div className="wrong-searched">Pesquisa inválida</div>}
           </div>
         </div>
       </div>
 
-      <div className="pagination d-flex justify-content-center roboto-medium p-4">
+      {/* Paginação */}
+      <div className="pagination d-flex justify-content-center p-4">
         <nav aria-label="Page navigation example">
           <ul className="pagination">
             <li className="page-item">

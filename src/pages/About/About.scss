@@ -1,47 +1,50 @@
+// Estilo para a caixa de texto
 .text-box {
   height: 100vh; // Altura total da viewport para desktop
   background-image: url('../../assets/img/abstract-envelope.svg');
   background-position: center;
   background-size: cover;
 
+  // Media query para remover o limite de altura para dispositivos móveis
   @media only screen and (max-width: 768px) {
-    // Remover o limite de altura para dispositivos móveis
     height: auto;
   }
 }
 
+// Estilo para o resumo de texto
 .text-summary {
   line-height: 3rem;
   font-size: 1.8rem;
   color: white;
 
+  // Media query para dispositivos móveis e tablets
   @media only screen and (max-width: 768px) {
-    // Para dispositivos móveis e tablets
     padding-left: 2rem;
     padding-right: 2rem;
     font-size: 1.6rem; // Aumenta um pouco o tamanho da fonte
   }
 
+  // Media query para tablets
   @media only screen and (min-width: 769px) and (max-width: 1024px) {
-    // Para tablets
     padding-left: 4rem;
     padding-right: 4rem;
     font-size: 1.8rem; // Aumenta um pouco o tamanho da fonte
   }
 }
 
+// Estilo para texto customizado
 .text-custom {
   padding-left: 12rem;
   padding-right: 12rem;
 
+  // Media query para dispositivos móveis e tablets
   @media only screen and (max-width: 768px) {
-    // Para dispositivos móveis e tablets
     padding-left: 2rem;
     padding-right: 2rem;
   }
 
+  // Media query para tablets
   @media only screen and (min-width: 769px) and (max-width: 1024px) {
-    // Para tablets
     padding-left: 4rem;
     padding-right: 4rem;
   }

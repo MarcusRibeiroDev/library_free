@@ -28,10 +28,9 @@ const App = () => {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} /> {/* Corrija o caminho da rota */}
-              <Route path="/books" element={<Books />} /> {/* Corrija o caminho da rota */}
+              <Route path="/about" element={<About />} />
+              <Route path="/books" element={<Books />} />
               <Route path="/books/:id" element={<BookDetails />} />{' '}
-              {/* Corrija o caminho da rota */}
             </Routes>
             <Footer />
           </BrowserRouter>
