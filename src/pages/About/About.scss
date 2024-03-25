@@ -19,15 +19,13 @@
 
   // Media query para dispositivos móveis e tablets
   @media only screen and (max-width: 768px) {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 4rem;
     font-size: 1.6rem; // Aumenta um pouco o tamanho da fonte
   }
 
   // Media query para tablets
   @media only screen and (min-width: 769px) and (max-width: 1024px) {
-    padding-left: 4rem;
-    padding-right: 4rem;
+    padding: 4rem;
     font-size: 1.8rem; // Aumenta um pouco o tamanho da fonte
   }
 }
@@ -39,8 +37,7 @@
 
   // Media query para dispositivos móveis e tablets
   @media only screen and (max-width: 768px) {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 2rem;
   }
 
   // Media query para tablets
